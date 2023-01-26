@@ -1,6 +1,14 @@
 import { Exclude } from 'class-transformer';
 import { CreatePersonDto } from './create-person.dto';
 export class PersonResponseDto {
+  name: string;
+  cpf: string;
+  address: object;
+  cellphone: string;
+  email: string;
+  account: string;
+  password: string;
+  createdAt: Date;
 
   @Exclude()
   _id: string;
