@@ -45,6 +45,6 @@ export class CpfValido implements ValidatorConstraintInterface {
     return validarCpf(value) ? true : false;
   }
   defaultMessage(validationArguments?: ValidationArguments): string {
-      return "O CPF precisa ser um CPF válido."
+      return "The CPF must been a valid CPF."
   }
 }
