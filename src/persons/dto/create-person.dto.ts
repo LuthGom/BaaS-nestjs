@@ -20,9 +20,11 @@ export class CreatePersonDto {
   @IsNotEmptyObject()
   address: IAddress;
 
-  @Validate(IsNumberString, {
-    message: 'Cellphone must be in a valid format with no "()" and no "-"',
+  @Length(11, 11, {
+    message:
+      "the cellphone must be a valid number with 11 numeric charathers and no symbols, such as: '()' and '-'",
   })
+  @IsNumberString()
   cellphone: String;
 
   @IsEmail()
