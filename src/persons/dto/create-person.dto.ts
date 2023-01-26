@@ -20,7 +20,7 @@ export class CreatePersonDto {
   @IsNotEmptyObject()
   address: IAddress;
 
-  @Length(11, 11, {
+  @Length(10, 11, {
     message:
       "the cellphone must be a valid number with 11 numeric charathers and no symbols, such as: '()' and '-'",
   })
