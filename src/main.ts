@@ -3,6 +3,8 @@ dotenv.config();
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
+import mongoose from 'mongoose';
+mongoose.set('strictQuery', true);
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
