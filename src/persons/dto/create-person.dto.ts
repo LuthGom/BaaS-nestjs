@@ -7,4 +7,5 @@ export class CreatePersonDto {
   email: String;
   account: String;
   password: String;
+  createdAt: Date;
 }

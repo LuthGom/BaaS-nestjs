@@ -8,6 +8,7 @@ export interface Person extends Document {
   readonly email: string;
   readonly account: string;
   readonly password: string;
+  createdAt: Date;
 }
 
 export interface IAddress {
