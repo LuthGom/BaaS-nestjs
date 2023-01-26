@@ -1,11 +1,19 @@
-import { Injectable } from '@nestjs/common';
+import { Model } from 'mongoose';
+import { Injectable, Inject } from '@nestjs/common';
 import { CreatePersonDto } from './dto/create-person.dto';
 import { UpdatePersonDto } from './dto/update-person.dto';
-
+import { Person } from 'src/interfaces/persons.interface';
+import { PersonResponseDto } from './dto/response-person.dto';
 @Injectable()
 export class PersonsService {
-  create(createPersonDto: CreatePersonDto) {
-    return 'This action adds a new person';
+  constructor(
+    @Inject('PERSON_MODEL')
+    private personModel: Model<Person>,
+  ) {}
+  async create(createPersonDto: CreatePersonDto): Promise<PersonResponseDto> {
+    const creatPerson = new this.personModel(createPersonDto);
+    creatPerson.save();
+    return new PersonResponseDto(createPersonDto);
   }
 
   findAll() {
