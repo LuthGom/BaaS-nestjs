@@ -10,7 +10,7 @@ export interface Person extends Document {
   readonly password: string;
 }
 
-export interface Address {
+export interface IAddress {
   readonly zipCode: string;
   readonly street: string;
   readonly houseNumber: number;
