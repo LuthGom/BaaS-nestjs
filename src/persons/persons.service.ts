@@ -20,15 +20,22 @@ export class PersonsService {
     return this.personModel.find().exec();
   }
 
-  findOne(id: number) {
+  findOne(id: string) {
     return `This action returns a #${id} person`;
   }
 
-  update(id: number, updatePersonDto: UpdatePersonDto) {
-    return `This action updates a #${id} person`;
+  async update(
+    id: string,
+    updatePersonDto: UpdatePersonDto,
+  ): Promise<PersonResponseDto> {
+    return this.personModel.findByIdAndUpdate(
+      { _id: id },
+      { $set: new PersonResponseDto(updatePersonDto) },
+      { new: true },
+    );
   }
 
-  remove(id: number) {
+  remove(id: string) {
     return `This action removes a #${id} person`;
   }
 }
