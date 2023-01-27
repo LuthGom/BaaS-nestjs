@@ -40,7 +40,7 @@ export class PersonsController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  async remove(@Param('id') id: string): Promise<any> {
     return this.personsService.remove(id);
   }
 }
