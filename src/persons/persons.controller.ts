@@ -28,16 +28,19 @@ export class PersonsController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.personsService.findOne(+id);
+    return this.personsService.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updatePersonDto: UpdatePersonDto) {
-    return this.personsService.update(+id, updatePersonDto);
+  async update(
+    @Param('id') id: string,
+    @Body() updatePersonDto: UpdatePersonDto,
+  ): Promise<PersonResponseDto> {
+    return this.personsService.update(id, updatePersonDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.personsService.remove(+id);
+    return this.personsService.remove(id);
   }
 }
