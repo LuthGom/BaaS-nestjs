@@ -16,8 +16,8 @@ export class PersonsService {
     return new PersonResponseDto(createPersonDto);
   }
 
-  findAll() {
-    return `This action returns all persons`;
+  async findAll(): Promise<Person[]> {
+    return this.personModel.find();
   }
 
   findOne(id: number) {
