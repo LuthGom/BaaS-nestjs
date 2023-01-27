@@ -11,7 +11,7 @@ import { PersonsService } from './persons.service';
 import { CreatePersonDto } from './dto/create-person.dto';
 import { UpdatePersonDto } from './dto/update-person.dto';
 import { PersonResponseDto } from './dto/response-person.dto';
-
+import { Person } from 'src/interfaces/persons.interface';
 @Controller('persons')
 export class PersonsController {
   constructor(private readonly personsService: PersonsService) {}
@@ -22,7 +22,7 @@ export class PersonsController {
   }
 
   @Get()
-  findAll() {
+  async findAll(): Promise<Person[]> {
     return this.personsService.findAll();
   }
 
