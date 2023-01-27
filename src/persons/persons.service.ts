@@ -35,7 +35,7 @@ export class PersonsService {
     );
   }
 
-  remove(id: string) {
-    return `This action removes a #${id} person`;
+  async remove(id: string): Promise<any> {
+    return this.personModel.findByIdAndDelete({_id: id})
   }
 }
