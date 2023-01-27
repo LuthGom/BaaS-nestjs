@@ -24,6 +24,10 @@ export class PersonsService {
     return this.personModel.findById({ _id: id }).exec();
   }
 
+  async findByCpf(cpf: string): Promise<(import("mongoose").Document<unknown, any, Person> & Person & { _id: import("mongoose").Types.ObjectId; })[]> {
+    return await this.personModel.find().where('cpf').equals(cpf);
+  }
+
   async update(
     id: string,
     updatePersonDto: UpdatePersonDto,
