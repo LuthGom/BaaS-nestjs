@@ -20,8 +20,8 @@ export class PersonsService {
     return this.personModel.find().exec();
   }
 
-  findOne(id: string) {
-    return `This action returns a #${id} person`;
+  async findOne(id: string): Promise<Person> {
+    return this.personModel.findById({ _id: id }).exec();
   }
 
   async update(
@@ -36,6 +36,6 @@ export class PersonsService {
   }
 
   async remove(id: string): Promise<any> {
-    return this.personModel.findByIdAndDelete({_id: id})
+    return this.personModel.findByIdAndDelete({ _id: id });
   }
 }
