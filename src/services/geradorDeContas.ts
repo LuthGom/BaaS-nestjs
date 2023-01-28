@@ -1,3 +1,3 @@
-export function geradorDeContas(max: number): number {
-  return Math.floor(Math.random() * max) * 5;
+export function geradorDeContas(): number {
+  return Math.floor(Math.random() * 1000000);
 }
