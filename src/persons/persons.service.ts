@@ -45,6 +45,15 @@ export class PersonsService {
     return await this.personModel.find().where('email').equals(email);
   }
 
+  async findByAccount(
+    account: string,
+  ): Promise<
+    (import('mongoose').Document<unknown, any, Person> &
+      Person & { _id: import('mongoose').Types.ObjectId })[]
+  > {
+    return await this.personModel.find().where('account').equals(account);
+  }
+
   async update(
     id: string,
     updatePersonDto: UpdatePersonDto,
