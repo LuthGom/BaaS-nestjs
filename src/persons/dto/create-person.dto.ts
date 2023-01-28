@@ -12,10 +12,10 @@ import {
 import { CpfValido } from '../validator-cpf';
 export class CreatePersonDto {
   @MinLength(4, { message: 'Name must have at least 4 characters' })
-  name: String;
+  name: string;
 
   @Validate(CpfValido)
-  cpf: String;
+  cpf: string;
 
   @IsNotEmptyObject()
   address: IAddress;
@@ -25,12 +25,12 @@ export class CreatePersonDto {
       "the cellphone must be a valid number with 11 numeric charathers and no symbols, such as: '()' and '-'",
   })
   @IsNumberString()
-  cellphone: String;
+  cellphone: string;
 
   @IsEmail()
-  email: String;
+  email: string;
 
-  account: String;
+  account: string;
 
   @IsNotEmpty()
   @Length(6, 10, {
@@ -44,7 +44,7 @@ export class CreatePersonDto {
     minSymbols: 1,
     minUppercase: 1,
   })
-  password: String;
+  password: string;
 
   createdAt: Date;
 }
