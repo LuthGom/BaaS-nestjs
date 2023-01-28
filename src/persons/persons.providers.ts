@@ -4,7 +4,7 @@ export const personsProviders = [
   {
     provide: 'PERSON_MODEL',
     useFactory: (connection: Connection) =>
-      connection.model('Cat', PersonSchema),
+      connection.model('Person', PersonSchema),
     inject: ['DATABASE_CONNECTION'],
   },
 ];
