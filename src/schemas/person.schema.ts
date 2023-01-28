@@ -13,7 +13,7 @@ const PersonSchema = new mongoose.Schema<Person>({
   account: Number,
   vd: Number,
   password: String,
-  createdAt: { type: Date, required: true },
+  createdAt:Date,
 });
 
 PersonSchema.pre<Person>('save', function (next) {
