@@ -46,7 +46,7 @@ export class PersonsService {
   }
 
   async findByAccount(
-    account: string,
+    account: number,
   ): Promise<
     (import('mongoose').Document<unknown, any, Person> &
       Person & { _id: import('mongoose').Types.ObjectId })[]
