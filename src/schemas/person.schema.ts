@@ -11,7 +11,7 @@ const PersonSchema = new mongoose.Schema<Person>({
   cellphone: { type: String, required: true },
   email: { type: String, required: true },
   account: Number,
-  digit: Number,
+  vd: Number,
   password: String,
   createdAt: { type: Date, required: true },
 });

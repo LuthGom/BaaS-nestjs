@@ -7,7 +7,7 @@ export interface Person extends Document {
   readonly cellphone: string;
   readonly email: string;
   readonly account: number;
-  readonly digit: number;
+  readonly vd: number;
   readonly password: string;
   createdAt: Date;
 }

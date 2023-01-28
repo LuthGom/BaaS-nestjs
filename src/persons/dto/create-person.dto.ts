@@ -31,7 +31,7 @@ export class CreatePersonDto {
   email: string;
 
   account: number;
-  digit: number;
+  vd: number;
 
   @IsNotEmpty()
   @Length(6, 10, {
