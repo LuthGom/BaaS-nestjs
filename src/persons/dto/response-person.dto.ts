@@ -6,7 +6,8 @@ export class PersonResponseDto {
   address: object;
   cellphone: string;
   email: string;
-  account: string;
+  account: number;
+  digit: number;
   password: string;
   createdAt: Date;
 

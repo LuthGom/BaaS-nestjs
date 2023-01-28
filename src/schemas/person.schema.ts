@@ -10,7 +10,8 @@ const PersonSchema = new mongoose.Schema<Person>({
   address: { type: Object, required: true },
   cellphone: { type: String, required: true },
   email: { type: String, required: true },
-  account: { type: String, required: true },
+  account: Number,
+  digit: Number,
   password: String,
   createdAt: { type: Date, required: true },
 });
