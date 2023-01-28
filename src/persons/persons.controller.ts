@@ -12,7 +12,7 @@ import { CreatePersonDto } from './dto/create-person.dto';
 import { UpdatePersonDto } from './dto/update-person.dto';
 import { PersonResponseDto } from './dto/response-person.dto';
 import { Person } from 'src/interfaces/persons.interface';
-
+import { Verification } from 'src/services/verifications';
 @Controller('persons')
 export class PersonsController {
   constructor(private readonly personsService: PersonsService) {}
@@ -20,16 +20,10 @@ export class PersonsController {
   @Post()
   create(
     @Body() createPersonDto: CreatePersonDto,
-  ): JSON
-   | Promise<PersonResponseDto> {
-    if (
-      !this.personsService.findByCpf(createPersonDto.cpf) &&
-      !this.personsService.findByEmail(createPersonDto.email)
-    ) {
+  ): JSON | Promise<PersonResponseDto> {
+    const verification = new Verification(this.personsService);
+    if (verification.allVerification(createPersonDto))
       return this.personsService.create(createPersonDto);
-    } else {
-      return JSON.parse("message: 'The e-mail or cpf it's already registered. Please verify your data!'");
-    }
   }
 
   @Get()
