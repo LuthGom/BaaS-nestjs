@@ -4,15 +4,17 @@ import { CreatePersonDto } from './dto/create-person.dto';
 import { UpdatePersonDto } from './dto/update-person.dto';
 import { Person } from 'src/interfaces/persons.interface';
 import { PersonResponseDto } from './dto/response-person.dto';
+import { geradorDeContas } from 'src/services/geradorDeContas';
 @Injectable()
 export class PersonsService {
   constructor(
     @Inject('PERSON_MODEL')
     private personModel: Model<Person>,
   ) {}
-  
+
   async create(createPersonDto: CreatePersonDto): Promise<PersonResponseDto> {
     const creatPerson = new this.personModel(createPersonDto);
+    createPersonDto.account = geradorDeContas();
     creatPerson.save();
     return new PersonResponseDto(createPersonDto);
   }
@@ -34,7 +36,7 @@ export class PersonsService {
     return await this.personModel.find().where('cpf').equals(cpf);
   }
 
-   async findByEmail(
+  async findByEmail(
     email: string,
   ): Promise<
     (import('mongoose').Document<unknown, any, Person> &
