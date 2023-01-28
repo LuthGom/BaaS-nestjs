@@ -10,6 +10,7 @@ export class PersonsService {
     @Inject('PERSON_MODEL')
     private personModel: Model<Person>,
   ) {}
+  
   async create(createPersonDto: CreatePersonDto): Promise<PersonResponseDto> {
     const creatPerson = new this.personModel(createPersonDto);
     creatPerson.save();
@@ -24,8 +25,22 @@ export class PersonsService {
     return this.personModel.findById({ _id: id }).exec();
   }
 
-  async findByCpf(cpf: string): Promise<(import("mongoose").Document<unknown, any, Person> & Person & { _id: import("mongoose").Types.ObjectId; })[]> {
+  async findByCpf(
+    cpf: string,
+  ): Promise<
+    (import('mongoose').Document<unknown, any, Person> &
+      Person & { _id: import('mongoose').Types.ObjectId })[]
+  > {
     return await this.personModel.find().where('cpf').equals(cpf);
+  }
+
+   async findByEmail(
+    email: string,
+  ): Promise<
+    (import('mongoose').Document<unknown, any, Person> &
+      Person & { _id: import('mongoose').Types.ObjectId })[]
+  > {
+    return await this.personModel.find().where('email').equals(email);
   }
 
   async update(
