@@ -14,8 +14,10 @@ export class PersonsService {
 
   async create(createPersonDto: CreatePersonDto): Promise<PersonResponseDto> {
     const creatPerson = new this.personModel(createPersonDto);
-    createPersonDto.account = geradorDeContas();
-    creatPerson.save();
+    if (this.findByAccount(createPersonDto.account)) {
+      createPersonDto.account = geradorDeContas();
+    }
+    await creatPerson.save();
     return new PersonResponseDto(createPersonDto);
   }
 
