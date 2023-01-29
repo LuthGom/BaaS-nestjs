@@ -20,9 +20,9 @@ export class PersonsController {
   @Post()
   create(
     @Body() createPersonDto: CreatePersonDto,
-  ): JSON | Promise<PersonResponseDto> {
-    
-      return this.personsService.create(createPersonDto);
+  ): string | Promise<PersonResponseDto> {
+
+    return this.personsService.create(createPersonDto);
   }
 
   @Get()
@@ -31,7 +31,7 @@ export class PersonsController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id') id: string) {    
     return this.personsService.findOne(id);
   }
 
