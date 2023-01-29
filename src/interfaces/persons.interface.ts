@@ -9,6 +9,7 @@ export interface Person extends Document {
   readonly account: number;
   readonly vd: number;
   readonly password: string;
+  readonly saldo: number;
   createdAt: Date;
 }
 

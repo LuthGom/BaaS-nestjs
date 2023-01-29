@@ -32,6 +32,7 @@ export class CreatePersonDto {
 
   account: number;
   vd: number;
+  saldo: number;
 
   @IsNotEmpty()
   @Length(6, 10, {

@@ -9,6 +9,7 @@ export class PersonResponseDto {
   account: number;
   vd: number;
   password: string;
+  saldo: number;
   createdAt: Date;
 
   @Exclude()
