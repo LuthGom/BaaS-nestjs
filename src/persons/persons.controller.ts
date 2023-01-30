@@ -8,12 +8,15 @@ import {
   Delete,
   HttpCode,
   HttpStatus,
+  Request,
 } from '@nestjs/common';
 import { PersonsService } from './persons.service';
 import { CreatePersonDto } from './dto/create-person.dto';
 import { UpdatePersonDto } from './dto/update-person.dto';
 import { PersonResponseDto } from './dto/response-person.dto';
 import { Person } from 'src/interfaces/persons.interface';
+import { UseGuards } from '@nestjs/common/decorators';
+import { LocalAuthGuard } from 'src/auth/local-auth';
 
 @Controller('persons')
 export class PersonsController {
@@ -31,9 +34,10 @@ export class PersonsController {
     return this.personsService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.personsService.findOne(id);
+  @UseGuards(LocalAuthGuard)
+  @Post('auth/login')
+  async login(@Request() req) {    
+    return req.user._doc
   }
 
   @Patch(':id')
