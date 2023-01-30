@@ -9,9 +9,9 @@ const PersonSchema = new mongoose.Schema<Person>({
   address: { type: Object, required: true },
   cellphone: { type: String, required: true },
   email: { type: String, required: true },
-  account: {type: Number, default: geradorDeContas()},
+  account: { type: Number, default: geradorDeContas() },
   vd: { type: Number, default: 1 },
-  saldo: Number,
+  saldo: { type: Number, default: 0 },
   password: String,
   createdAt: Date,
 });
