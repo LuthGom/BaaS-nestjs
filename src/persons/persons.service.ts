@@ -25,10 +25,6 @@ export class PersonsService {
     return this.personModel.find().exec();
   }
 
-  async findOne(id: string): Promise<Person> {
-    return this.personModel.findById({ _id: id }).exec();
-  }
-
   async findByCpf(
     cpf: string,
   ): Promise<
@@ -38,13 +34,13 @@ export class PersonsService {
     return await this.personModel.find().where('cpf').equals(cpf);
   }
 
-  async findByEmail(
-    email: string,
-  ): Promise<
-    (import('mongoose').Document<unknown, any, Person> &
-      Person & { _id: import('mongoose').Types.ObjectId })[]
-  > {
-    return await this.personModel.find().where('email').equals(email);
+  async findOne(email: string) {
+    const person = await this.personModel
+      .find()
+      .where('email')
+      .equals(email)
+      .exec();
+    return person;
   }
 
   async findByAccount(
@@ -53,7 +49,11 @@ export class PersonsService {
     (import('mongoose').Document<unknown, any, Person> &
       Person & { _id: import('mongoose').Types.ObjectId })[]
   > {
-    return await this.personModel.find().where('account').equals(account);
+    const person = await this.personModel
+      .find()
+      .where('account')
+      .equals(account);
+    return person;
   }
 
   async update(
