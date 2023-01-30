@@ -6,6 +6,8 @@ import {
   Patch,
   Param,
   Delete,
+  HttpCode,
+  HttpStatus,
 } from '@nestjs/common';
 import { PersonsService } from './persons.service';
 import { CreatePersonDto } from './dto/create-person.dto';
@@ -21,7 +23,6 @@ export class PersonsController {
   create(
     @Body() createPersonDto: CreatePersonDto,
   ): string | Promise<PersonResponseDto> {
-
     return this.personsService.create(createPersonDto);
   }
 
@@ -31,7 +32,7 @@ export class PersonsController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {    
+  findOne(@Param('id') id: string) {
     return this.personsService.findOne(id);
   }
 
@@ -44,6 +45,7 @@ export class PersonsController {
   }
 
   @Delete(':id')
+  @HttpCode(HttpStatus.NO_CONTENT)
   async remove(@Param('id') id: string): Promise<any> {
     return this.personsService.remove(id);
   }
