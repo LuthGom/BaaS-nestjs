@@ -1,4 +1,4 @@
-import { Model } from 'mongoose';
+import { Model, Document } from 'mongoose';
 import { Injectable, Inject } from '@nestjs/common';
 import { CreatePersonDto } from './dto/create-person.dto';
 import { UpdatePersonDto } from './dto/update-person.dto';
@@ -28,7 +28,7 @@ export class PersonsService {
   async findByCpf(
     cpf: string,
   ): Promise<
-    (import('mongoose').Document<unknown, any, Person> &
+    (Document<unknown, any, Person> &
       Person & { _id: import('mongoose').Types.ObjectId })[]
   > {
     return await this.personModel.find().where('cpf').equals(cpf);
@@ -43,17 +43,14 @@ export class PersonsService {
     return person;
   }
 
-  async findByAccount(
-    account: number,
-  ): Promise<
-    (import('mongoose').Document<unknown, any, Person> &
-      Person & { _id: import('mongoose').Types.ObjectId })[]
-  > {
+  async findByAccount(accountNumber: number): Promise<object> {
     const person = await this.personModel
       .find()
       .where('account')
-      .equals(account);
-    return person;
+      .equals(accountNumber);
+    const { name, cpf, account, vd, saldo } = person[0];
+    const personSaldo = { name, cpf, account, vd, saldo };
+    return personSaldo;
   }
 
   async update(
