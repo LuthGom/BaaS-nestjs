@@ -17,10 +17,14 @@ import { PersonResponseDto } from './dto/response-person.dto';
 import { Person } from 'src/interfaces/persons.interface';
 import { UseGuards } from '@nestjs/common/decorators';
 import { LocalAuthGuard } from 'src/auth/local-auth';
-
+import { AuthService } from 'src/auth/auth.service';
+import { JwtAuthGuard } from 'src/auth/jwt-auth';
 @Controller('persons')
 export class PersonsController {
-  constructor(private readonly personsService: PersonsService) {}
+  constructor(
+    private readonly personsService: PersonsService,
+    private authService: AuthService,
+  ) {}
 
   @Post()
   create(
@@ -36,8 +40,8 @@ export class PersonsController {
 
   @UseGuards(LocalAuthGuard)
   @Post('auth/login')
-  async login(@Request() req) {    
-    return req.user._doc
+  async login(@Request() req) {
+    return await this.authService.login(req.user);
   }
 
   @Patch(':id')
