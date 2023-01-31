@@ -33,16 +33,23 @@ export class PersonsController {
     return this.personsService.create(createPersonDto);
   }
 
-  @Get()
-  async findAll(): Promise<Person[]> {
-    return this.personsService.findAll();
-  }
-
   @UseGuards(LocalAuthGuard)
   @Post('auth/login')
   async login(@Request() req) {
     return await this.authService.login(req.user);
   }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('saldo/:account')
+  async saldo(@Param('account') account: number) {
+    return await this.personsService.findByAccount(account);
+  }
+
+  @Get()
+  async findAll(): Promise<Person[]> {
+    return this.personsService.findAll();
+  }
+
   @UseGuards(JwtAuthGuard)
   @Patch(':id')
   async update(
