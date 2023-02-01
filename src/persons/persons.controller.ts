@@ -9,6 +9,7 @@ import {
   HttpCode,
   HttpStatus,
   Request,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { PersonsService } from './persons.service';
 import { CreatePersonDto } from './dto/create-person.dto';
@@ -37,6 +38,28 @@ export class PersonsController {
   @Post('auth/login')
   async login(@Request() req) {
     return await this.authService.login(req.user);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Patch('transferencia/:cpf')
+  async transferencia(@Param('cpf') cpf: string, @Body() transfer: any) {
+    const personWhoSents = await this.personsService.findByCpf(cpf);
+    const personWhoReceives = await this.personsService.findByCpf(transfer.cpf);
+    let { saldo } = personWhoSents[0];
+    console.log(saldo, transfer.saldo, personWhoReceives[0].saldo);
+    
+    if (
+      personWhoReceives &&
+      Math.sign(transfer.saldo) === 1 &&
+      transfer.saldo <= saldo
+    ) {
+      saldo = saldo - transfer.saldo;
+      this.personsService.transferencia(personWhoSents[0].id, { saldo: saldo });
+      this.personsService.transferencia(personWhoReceives[0].id, {saldo: transfer.saldo})
+      
+    } else {
+      return new UnauthorizedException();
+    }
   }
 
   @UseGuards(JwtAuthGuard)
