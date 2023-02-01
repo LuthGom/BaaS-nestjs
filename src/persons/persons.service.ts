@@ -43,7 +43,9 @@ export class PersonsService {
     return person;
   }
 
-  async findByAccount(accountNumber: number): Promise<object> {
+  async findByAccount(accountNumber: number): Promise<(Document<unknown, any, Person> &
+    Person & { _id: import('mongoose').Types.ObjectId })[]
+>  {
     const person = await this.personModel
       .find()
       .where('account')

@@ -47,7 +47,7 @@ export class PersonsController {
     const personWhoReceives = await this.personsService.findByCpf(transfer.cpf);
     let { saldo } = personWhoSents[0];
     console.log(saldo, transfer.saldo, personWhoReceives[0].saldo);
-    
+
     if (
       personWhoReceives &&
       Math.sign(transfer.saldo) === 1 &&
@@ -55,8 +55,9 @@ export class PersonsController {
     ) {
       saldo = saldo - transfer.saldo;
       this.personsService.transferencia(personWhoSents[0].id, { saldo: saldo });
-      this.personsService.transferencia(personWhoReceives[0].id, {saldo: transfer.saldo})
-      
+      this.personsService.transferencia(personWhoReceives[0].id, {
+        saldo: transfer.saldo,
+      });
     } else {
       return new UnauthorizedException();
     }
@@ -65,7 +66,16 @@ export class PersonsController {
   @UseGuards(JwtAuthGuard)
   @Get('saldo/:account')
   async saldo(@Param('account') account: number) {
-    return await this.personsService.findByAccount(account);
+    const consulta = await this.personsService.findByAccount(account);
+    const personSaldo = consulta.map((conta) => {
+      return {
+        name: conta.name,
+        account: conta.account,
+        saldo: conta.saldo,
+        cpf: conta.cpf,
+      };
+    });
+    return personSaldo;
   }
 
   @Get()
