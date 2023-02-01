@@ -48,9 +48,8 @@ export class PersonsService {
       .find()
       .where('account')
       .equals(accountNumber);
-    const { name, cpf, account, vd, saldo } = person[0];
-    const personSaldo = { name, cpf, account, vd, saldo };
-    return personSaldo;
+
+    return person;
   }
 
   async update(
@@ -60,6 +59,13 @@ export class PersonsService {
     return this.personModel.findByIdAndUpdate(
       { _id: id },
       { $set: new PersonResponseDto(updatePersonDto) },
+      { new: true },
+    );
+  }
+  async transferencia(id: string, saldo: object) {
+    return await this.personModel.findByIdAndUpdate(
+      { _id: id },
+      { $set: saldo },
       { new: true },
     );
   }
