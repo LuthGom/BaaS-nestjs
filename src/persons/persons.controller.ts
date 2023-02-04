@@ -46,7 +46,6 @@ export class PersonsController {
     const personWhoSents = await this.personsService.findByCpf(cpf);
     const personWhoReceives = await this.personsService.findByCpf(transfer.cpf);
     let { saldo } = personWhoSents[0];
-    console.log(saldo, transfer.saldo, personWhoReceives[0].saldo);
 
     if (
       personWhoReceives &&
@@ -56,7 +55,7 @@ export class PersonsController {
       saldo = saldo - transfer.saldo;
       this.personsService.transferencia(personWhoSents[0].id, { saldo: saldo });
       this.personsService.transferencia(personWhoReceives[0].id, {
-        saldo: transfer.saldo,
+        saldo: personWhoReceives[0].id + transfer.saldo,
       });
     } else {
       return new UnauthorizedException();
