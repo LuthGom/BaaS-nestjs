@@ -1,34 +1,38 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 import { AccountsService } from './accounts.service';
-import { CreateAccountDto } from './dto/create-account.dto';
-import { UpdateAccountDto } from './dto/update-account.dto';
 
 @Controller('accounts')
 export class AccountsController {
   constructor(private readonly accountsService: AccountsService) {}
 
-  @Post()
-  create(@Body() createAccountDto: CreateAccountDto) {
-    return this.accountsService.create(createAccountDto);
+  @Get()
+  async findAll() {
+    return await this.accountsService.findAll();
   }
 
-  @Get()
-  findAll() {
-    return this.accountsService.findAll();
+  @Get(':cpf')
+  async findByCpf(@Param('cpf') cpf: string) {
+    return await this.accountsService.findByCpf(cpf);
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.accountsService.findOne(+id);
+  async findById(@Param('id') id: string) {
+    const account = await this.accountsService.findbyId(id);
+    console.log(account);
+    return account;
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateAccountDto: UpdateAccountDto) {
-    return this.accountsService.update(+id, updateAccountDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.accountsService.remove(+id);
+  @Get(':account')
+  async findByAccount(@Param('account') account: number) {
+    const accountReturned = await this.accountsService.findByAccount(account);
+    return accountReturned.map((account) => {
+      return {
+        name: account.name,
+        cpf: account.cpf,
+        account: account.cpf,
+        vd: account.vd,
+        saldo: account.saldo,
+      };
+    });
   }
 }
