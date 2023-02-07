@@ -1,26 +1,34 @@
-import { Injectable } from '@nestjs/common';
-import { CreateAccountDto } from './dto/create-account.dto';
-import { UpdateAccountDto } from './dto/update-account.dto';
+import { Injectable, Inject } from '@nestjs/common';
 
+import { Model } from 'mongoose';
+import { Person } from 'src/interfaces/persons.interface';
 @Injectable()
 export class AccountsService {
-  create(createAccountDto: CreateAccountDto) {
-    return 'This action adds a new account';
+  constructor(
+    @Inject('PERSON_MODEL')
+    private personModel: Model<Person>,
+  ) {}
+
+  async findAll() {
+    return await this.personModel.find();
   }
 
-  findAll() {
-    return `This action returns all accounts`;
+  async findbyId(id: string) {
+    const account = await this.personModel.findById({_id: id});
+   
+    
+    return account;
+  }
+  async findByCpf(cpf: string) {
+    const account = await this.personModel.find().where('cpf').equals(cpf);
+    return account;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} account`;
-  }
-
-  update(id: number, updateAccountDto: UpdateAccountDto) {
-    return `This action updates a #${id} account`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} account`;
+  async findByAccount(account: number) {
+    const accountReturned = await this.personModel
+      .find()
+      .where('account')
+      .equals(account);
+    return accountReturned;
   }
 }
