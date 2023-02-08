@@ -9,14 +9,21 @@ export class AccountsController {
   async findAll() {
     return await this.accountsService.findAll();
   }
-
-  @Get(':cpf')
-  async findByCpf(@Param('cpf') cpf: string) {
-    return await this.accountsService.findByCpf(cpf);
+  @Get('/cpf/:cpf')
+   findByCpf(@Param('cpf') cpf: string) {
+    return  this.accountsService.findByCpf(cpf);
   }
-
-  @Get(':id')
-  async findById(@Param('id') id: string) {
+  @Get('/person/:id')
+  async findById(@Param('id') id: string): Promise<
+    import('mongoose').Document<
+      unknown,
+      any,
+      import('c:/Users/Administrador/Desktop/Mentoria  - Code/Baas/Baas/src/interfaces/persons.interface').Person
+    > &
+      import('c:/Users/Administrador/Desktop/Mentoria  - Code/Baas/Baas/src/interfaces/persons.interface').Person & {
+        _id: import('mongoose').Types.ObjectId;
+      }
+  > {
     const account = await this.accountsService.findbyId(id);
     console.log(account);
     return account;
