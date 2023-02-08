@@ -13,14 +13,14 @@ export class AccountsService {
     return await this.personModel.find();
   }
 
-  async findbyId(id: string) {
+  async findbyId(id: string): Promise<import("mongoose").Document<unknown, any, Person> & Person & { _id: import("mongoose").Types.ObjectId; }> {
     const account = await this.personModel.findById({_id: id});
-   
-    
     return account;
   }
-  async findByCpf(cpf: string) {
-    const account = await this.personModel.find().where('cpf').equals(cpf);
+   async findByCpf(cpf: string) {
+    const account =   this.personModel.find().where('cpf').equals(cpf);
+    console.log(account);
+    
     return account;
   }
 
