@@ -77,11 +77,6 @@ export class PersonsController {
     return personSaldo;
   }
 
-  @Get()
-  async findAll(): Promise<Person[]> {
-    return this.personsService.findAll();
-  }
-
   @UseGuards(JwtAuthGuard)
   @Patch(':id')
   async update(
