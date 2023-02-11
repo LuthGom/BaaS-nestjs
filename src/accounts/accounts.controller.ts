@@ -25,7 +25,6 @@ export class AccountsController {
       }
   > {
     const account = await this.accountsService.findbyId(id);
-    console.log(account);
     return account;
   }
 
