@@ -9,24 +9,42 @@
 ## Tecnologias utilizadas neste projeto:
 
 ### - Nodejs/TypeScript
-### - Nestjs
-### - MongoDB
-### - Passport
-### JsonWEbToken (JWT)
 
+### - Nestjs
+
+### - MongoDB
+
+### - Passport
+
+### JsonWEbToken (JWT)
 
 ## ROTAS
 
-### 📚 PERSONS 📚
+### 📚 ACCOUNTS 📚
 
-| Método     | Rota            | Descrição                  |
-| ---------- | --------------- | -------------------------- |
-| **GET**    | `/persons`        | Lista todos as persons      |
-### retorna:
-  | **GET**    | `/persons/{id}` | Busca o persons pelo {id}    |
+| Método  | Rota        | Descrição              |
+| ------- | ----------- | ---------------------- |
+| **GET** | `/accounts` | Lista todos as persons |
+
+---
+
+| **GET** | `accounts/persons/{id}` | Busca o persons pelo {id} |
+
+---
+
+| **GET** | `accounts/persons/{cpf}` | Busca o persons pelo {cpf} |
+
+---
+
+| **GET** | `accounts/persons/{account}` | Busca o persons pelo {account} |
+
+---
+
+### retornam:
+
 ```json
 {
-    "_id": "Objectid"
+  "_id": "Objectid"
     "name": string ("obrigatório"),
     "cpf": string,
     "adress": {
@@ -46,15 +64,32 @@
 }
 ```
 
+---
 
-| **GET**    | `/persons/{saldo}` | consulta saldo (necessário realiar login)  |
+### 📚 PERSONS 📚
 
-
-| **POST**   | `/persons`        | Adiciona um novo person     |
-### campos necessários:
+## | **GET** | `/persons/{saldo}` | consulta saldo (necessário realizar login) |
+--------------------------------------------------------------------------------
+## | **GET** | `/persons/{cpf}` | consulta dados da person (necessário realizar login) |
+--------------------------------------------------------------------------------
 ```json
 {
-    
+  name: string,
+  account: number,
+  vd: 1,
+  saldo: number,
+  cpf: string,
+  address: object
+}
+```
+
+| **POST** | `/persons` | Adiciona um novo person |
+
+### campos necessários:
+
+```json
+{
+
     "name": string ("obrigatório"),
     "cpf": string,
     "adress": {
@@ -72,29 +107,31 @@
 }
 ```
 
-
-| **POST**   | `/persons/auth/login` | Realiza 
-login de uma person cadastrada|
-
+| **POST** | `/persons/auth/login` | Realiza login de uma person cadastrada|
+---------------------------------------------------------------------------
 ### campos necessários:
+
 ```json
 {
   "account": string,
   "password": string
 }
 ```
-| **PATCH**  | `/persons/:{id}`  | Atualiza o persons pelo {id} (necessário realiar login)|
+
+| **PATCH** | `/persons/:{id}` | Atualiza o persons pelo {id} (necessário realiar login)|
 
 ### exemplo (apenas os campos que quiser atualizar):
+
 ```json
 {
   "email": string
 }
 ```
 
-| **PATCH**  | `/persons/:{cpf}`  | realiza uma transferência de uma conta para outra (necessário realiar login)|
+| **PATCH** | `/persons/:{cpf}` | realiza uma transferência de uma conta para outra (necessário realiar login)|
 
 ### campos necessários (no body o cpf é o da pessoa que irá receber a transferência):
+
 ```json
 {
   "cpf": string,
@@ -102,11 +139,8 @@ login de uma person cadastrada|
 }
 ```
 
-
-| **DELETE** | `/persons/:{id}`  | Deleta o persons pelo {id}   (necessário realizar login)|
-
-
+| **DELETE** | `/persons/:{id}` | Deleta o persons pelo {id} (necessário realizar login)|
 
 Author: Luciano mendes
 Desenvolver Backend
-| <a href="www.linkedin.com/in/dev-luciano-mendes">Linkedin</a> 
+| <a href="www.linkedin.com/in/dev-luciano-mendes">Linkedin</a>
