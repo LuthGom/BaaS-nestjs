@@ -63,6 +63,23 @@ export class PersonsController {
   }
 
   @UseGuards(JwtAuthGuard)
+  @Get(':cpf')
+  async findOne(@Param('cpf') cpf:string){
+    const consulta = await this.personsService.findByCpf(cpf);
+    const person = consulta.map(conta=>{
+      return {
+        name: conta.name,
+        account: conta.account,
+        vd: conta.vd,
+        saldo: conta.saldo,
+        cpf: conta.cpf,
+        adress: conta.address
+      }
+    })
+    return person;
+  }
+
+  @UseGuards(JwtAuthGuard)
   @Get('saldo/:account')
   async saldo(@Param('account') account: number) {
     const consulta = await this.personsService.findByAccount(account);
