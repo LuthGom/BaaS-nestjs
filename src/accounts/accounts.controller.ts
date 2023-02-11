@@ -29,7 +29,7 @@ export class AccountsController {
     return account;
   }
 
-  @Get(':account')
+  @Get('/account/:account')
   async findByAccount(@Param('account') account: number) {
     const accountReturned = await this.accountsService.findByAccount(account);
     return accountReturned.map((account) => {
